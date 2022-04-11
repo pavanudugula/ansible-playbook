@@ -1,18 +1,24 @@
 ---
-- hosts: webservers 
-  become: True
+- name: install tomcat server
+  hosts: webservers
+  become: true
+
   tasks:
-    - name: Install packages
-      apt:
-        name: "nginx"
-        state: "present"
-    - name: Start nginx server
-      service:
-        name: nginx
-        state: started
-        enabled: True
-    - name: Deploy static website
-      copy:
-        src: index.html
-        dest: /var/www/html/
-...
+  - name: Install OpenJDK
+    apt:
+      name: openjdk-11-jre-headless
+
+  - name: download tomcat server packages
+    get_url:
+      url: https://archive.apache.org/dist/tomcat/tomcat-10/v10.0.8/bin/apache-tomcat-10.0.8.tar.gz
+      dest: /usr/local
+
+  - name: extract tomcat packages
+    unarchive:
+      src: /usr/local/apache-tomcat-10.0.8.tar.gz
+      dest: /usr/local
+      remote_src: yes
+
+  - name: start tomcat services
+    shell: nohup /usr/local/apache-tomcat-10.0.8/bin/startup.sh
+
