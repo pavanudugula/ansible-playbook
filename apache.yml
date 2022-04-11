@@ -15,7 +15,7 @@
 
   - name: extract tomcat packages
     unarchive:
-      src: /usr/local/apache-tomcat-10.0.8.tar.gz
+      src: /usr/local/apache-10.0.8.tar.gz
       dest: /usr/local
       remote_src: yes
 
