@@ -1,2 +1,2 @@
 [webservers]
-tomcat ansible_user=ec2-user 
+tomcat ansible_root=ec2-user 
